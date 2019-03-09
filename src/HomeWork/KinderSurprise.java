@@ -1,14 +1,14 @@
 package HomeWork;
 
 public class KinderSurprise extends Sweet {
-    double size;
-    public KinderSurprise (double price, double weight, double size){
-        super(price,weight);
-        this.size = size;
+    private String uhique;
+    public KinderSurprise (String name, double price, double weight, String uhique){
+        super(name,price,weight);
+        this.uhique = uhique;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "киндер сюрприз, " + " вес: " + weight + ", цена: " + price +  ", размер: " + size + ".";
+        return uhique;
     }
 }
