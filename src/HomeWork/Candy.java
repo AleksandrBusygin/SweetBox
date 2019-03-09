@@ -1,14 +1,15 @@
 package HomeWork;
 
 public class Candy extends Sweet {
-    String composition;
-    public Candy (double price, double weight,String composition){
-        super(price,weight);
-        this.composition = composition;
+    private String uhique;
+
+    public Candy(String name, double price, double weight, String uhique) {
+        super(name, price, weight);
+        this.uhique = uhique;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "конфета \"Трюфель\", " + " вес: " + weight + ", цена: " + price +  ", состав: " + composition + ".";
+        return uhique;
     }
 }
