@@ -6,4 +6,6 @@ public interface BoxInter {
     public double weightInfo();
     public double priceInfo ();
     public void allInfo();
+    public void reduceWeight(double weight);
+    public void reducePrice(double price);
 }

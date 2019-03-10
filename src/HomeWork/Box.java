@@ -2,40 +2,36 @@ package HomeWork;
 
 public class Box implements BoxInter {
 
-    private int countOfItemsInBox;
     private Sweet[] giftBoxArray;
     private boolean isFullBox;
 
-    public Box(int countOfItem) {
-        countOfItemsInBox = countOfItem;
-        giftBoxArray = new Sweet[countOfItemsInBox];
+    public Box() {
+        giftBoxArray = new Sweet[0];
         isFullBox = false;
     }
 
     @Override
     public void add(Sweet sweet) {
-        if (!isFullBox) {
-            for (int i = 0; i < giftBoxArray.length; i++) {
-                if (giftBoxArray[i] == null) {
-                    giftBoxArray[i] = sweet;
-                    isFullBox = false;
-                    return;
-                } else {
-                    isFullBox = true;
-                }
-            }
+        Sweet[] newGiftBox = new Sweet[giftBoxArray.length + 1];
+        for (int i = 0; i < giftBoxArray.length; i++) {
+            newGiftBox[i] = giftBoxArray[i];
         }
-        if (isFullBox)
-            System.out.println("В коробке больше нет места. Невозможно добавить сладость " + sweet.name);
+        newGiftBox[giftBoxArray.length] = sweet;
+        giftBoxArray = newGiftBox;
     }
 
     @Override
     public void delete(int indexDeleted) {
-        try {
-            giftBoxArray[indexDeleted] = null;
-        } catch (Exception e) {
-            System.out.println("Невозможно удалить сладость из коробки");
+        Sweet[] newGiftBox = new Sweet[giftBoxArray.length - 1];
+        giftBoxArray[indexDeleted] = null;
+        int count = 0;
+        for (int i = 0; i < giftBoxArray.length; i++) {
+            if (giftBoxArray[i] != null){
+            newGiftBox[count] = giftBoxArray[i];
+            count++;
+            }
         }
+        giftBoxArray = newGiftBox;
     }
 
     @Override
@@ -43,7 +39,7 @@ public class Box implements BoxInter {
         double totalweigth = 0;
         for (int i = 0; i < giftBoxArray.length; i++) {
             if (giftBoxArray[i] != null) {
-                totalweigth += giftBoxArray[i].weight;
+                totalweigth += giftBoxArray[i].getWeight();
             }
         }
         return totalweigth;
@@ -54,7 +50,7 @@ public class Box implements BoxInter {
         double totalprice = 0;
         for (int i = 0; i < giftBoxArray.length; i++) {
             if (giftBoxArray[i] != null) {
-                totalprice += giftBoxArray[i].price;
+                totalprice += giftBoxArray[i].getPrice();
             }
         }
         return totalprice;
@@ -65,12 +61,13 @@ public class Box implements BoxInter {
         String info = "";
         for (int i = 0; i < giftBoxArray.length; i++) {
             if (giftBoxArray[i] != null) {
-                info += "Наименование сладости: " + giftBoxArray[i].name + "; Вес сладости: " + giftBoxArray[i].weight + "; Цена сладости: " + giftBoxArray[i].price + "; Уникальный параметр сладости: " + giftBoxArray[i].toString() + String.format("%n");;
+                info += "Наименование сладости: " + giftBoxArray[i].getName() + "; Вес сладости: " + giftBoxArray[i].getWeight() + "; Цена сладости: " + giftBoxArray[i].getPrice() + "; Уникальный параметр сладости: " + giftBoxArray[i].toString() + String.format("%n");;
             }
         }
         System.out.println("Общая информация о сладостях в коробке: \n" + info);
     }
 
+    @Override
     public void reduceWeight(double weight)
     {
         //если в массиве есть элементы
@@ -78,47 +75,50 @@ public class Box implements BoxInter {
         {
             double totalWeight = weightInfo();
             int indexOfMinimum = 0;
-            double minimum = giftBoxArray[0].price;
+            double minimum = giftBoxArray[0].getWeight();
         //если обший вес больше того что нужно
             while (totalWeight > weight)
             {
-                for (int i = 1; i < giftBoxArray.length; i++)
+                minimum = giftBoxArray[0].getWeight();
+                indexOfMinimum = 0;
+                for (int i = 0; i < giftBoxArray.length; i++)
                 {
-                    if (minimum > giftBoxArray[i].weight)
+                    if (minimum > giftBoxArray[i].getWeight())
                     {
-                        minimum = giftBoxArray[i].weight;
+                        minimum = giftBoxArray[i].getWeight();
                         indexOfMinimum = i;
                     }
                 }
-                giftBoxArray[indexOfMinimum] = null;
+                delete(indexOfMinimum);
                 totalWeight = weightInfo();
             }
         }
     }
 
+    @Override
     public void reducePrice(double price)
     {
-        //если в массиве есть элементы
         if (giftBoxArray.length > 0)
         {
             double totalPrice = priceInfo();
             int indexOfMinimum = 0;
-            double minimum = giftBoxArray[0].price;
-        //если общая ценна больше той что нужно
+            double minimum = giftBoxArray[0].getPrice();
+            //если обший вес больше того что нужно
             while (totalPrice > price)
             {
+                minimum = giftBoxArray[0].getPrice();
+                indexOfMinimum = 0;
                 for (int i = 0; i < giftBoxArray.length; i++)
                 {
-                    if (minimum > giftBoxArray[i].price)
+                    if (minimum > giftBoxArray[i].getPrice())
                     {
-                        minimum =giftBoxArray[i].price;
+                        minimum = giftBoxArray[i].getPrice();
                         indexOfMinimum = i;
                     }
                 }
-                giftBoxArray[indexOfMinimum] = null;
+                delete(indexOfMinimum);
                 totalPrice = priceInfo();
             }
-
         }
 
     }
