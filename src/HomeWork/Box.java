@@ -22,6 +22,9 @@ public class Box implements BoxInter {
 
     @Override
     public void delete(int indexDeleted) {
+        if (emptyBox()){
+            return;
+        }
         if (indexDeleted > giftBoxArray.length){
             return;
         }
@@ -41,6 +44,9 @@ public class Box implements BoxInter {
 
     @Override
     public double weightInfo() {
+        if (emptyBox()){
+            return 0;
+        }
         double totalweigth = 0;
         for (int i = 0; i < giftBoxArray.length; i++) {
             if (giftBoxArray[i] != null) {
@@ -52,6 +58,9 @@ public class Box implements BoxInter {
 
     @Override
     public double priceInfo() {
+        if (emptyBox()){
+            return 0;
+        }
         double totalprice = 0;
         for (int i = 0; i < giftBoxArray.length; i++) {
             if (giftBoxArray[i] != null) {
@@ -63,6 +72,9 @@ public class Box implements BoxInter {
 
     @Override
     public void allInfo() {
+        if (emptyBox()){
+            return;
+        }
         String info = "";
         for (int i = 0; i < giftBoxArray.length; i++) {
             if (giftBoxArray[i] != null) {
@@ -75,6 +87,9 @@ public class Box implements BoxInter {
     @Override
     public void reduceWeight(double weight)
     {
+        if (emptyBox()){
+            return;
+        }
         //если в массиве есть элементы
         if (giftBoxArray.length > 0)
         {
@@ -103,6 +118,9 @@ public class Box implements BoxInter {
     @Override
     public void reducePrice(double price)
     {
+        if (emptyBox()){
+            return;
+        }
         if (giftBoxArray.length > 0)
         {
             double totalPrice = priceInfo();
@@ -126,6 +144,15 @@ public class Box implements BoxInter {
             }
         }
 
+    }
+    public boolean emptyBox(){
+        if (giftBoxArray.length == 0){
+            System.out.println("Коробка пустая");
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
