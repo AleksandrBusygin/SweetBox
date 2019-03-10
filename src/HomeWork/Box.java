@@ -25,7 +25,7 @@ public class Box implements BoxInter {
         if (emptyBox()){
             return;
         }
-        if (indexDeleted > giftBoxArray.length){
+        if ((indexDeleted > giftBoxArray.length) || (indexDeleted < 0)){
             return;
         }
         Sweet[] newGiftBox = new Sweet[giftBoxArray.length - 1];

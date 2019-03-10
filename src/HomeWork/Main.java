@@ -17,7 +17,7 @@ public class Main {
             System.out.println("Общая цена подарка: " + box.priceInfo());
         }
 
-        box.delete(7);
+        box.delete(-7);
         box.allInfo();
         box.reducePrice(300);
         box.allInfo();
