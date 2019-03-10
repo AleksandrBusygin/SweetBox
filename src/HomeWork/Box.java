@@ -22,13 +22,18 @@ public class Box implements BoxInter {
 
     @Override
     public void delete(int indexDeleted) {
+        if (indexDeleted > giftBoxArray.length){
+            return;
+        }
         Sweet[] newGiftBox = new Sweet[giftBoxArray.length - 1];
         giftBoxArray[indexDeleted] = null;
         int count = 0;
-        for (int i = 0; i < giftBoxArray.length; i++) {
-            if (giftBoxArray[i] != null){
-            newGiftBox[count] = giftBoxArray[i];
-            count++;
+        {
+            for (int i = 0; i < giftBoxArray.length; i++) {
+                if (giftBoxArray[i] != null) {
+                    newGiftBox[count] = giftBoxArray[i];
+                    count++;
+                }
             }
         }
         giftBoxArray = newGiftBox;
